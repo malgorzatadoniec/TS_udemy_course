@@ -1,98 +1,124 @@
-// LESSON 8 objects
+// LESSON 14 UNION TYPE
 
-// const person = {
-//     name: "Gosia",
-//     age: 28,
-//   };
+// function combine (input1: number | string, input2: number | string) {
+//     //const result = input1 + input2; // ale po wprowadzeniu number | string tu pojawia się error, bo TS nie analizuje, co jest w union typie, widzi tylko, że jest union type
+//     // jak sobie z tym poradzić za pomocą runtime checka (często będzie to potrzebne, choć nie zawsze):
 
-// const person: {
-//   name: string;
-//   age: number;
-// } = {
-//   name: "Gosia",
-//   age: 28,
-// };
-
-// const human: object = {
-//     name: "Tom",
-//     age: 17
+//     let result;
+//     if (typeof input1 === 'number' && typeof input2 === 'number'){
+//         result = input1 + input2;
+//     } else {
+//         result = input1.toString() + input2.toString()
+//     }
+//     return result;
 // }
 
-// console.log(person.name);
+// const combinedAges = combine(30, 26)
 
-// LESSON 9 nested objects
+// console.log(combinedAges)
 
-// const product = {
-//     id: 'abc1',
-//     price: 12.99,
-//     tags: ['new', 'sale'],
-//     details: {
-//         title: 'Rug',
-//         descr: 'New red rug'
+// const combinedNames = combine('Max', 'Anne')
+
+// console.log(combinedNames)
+
+
+
+// LESSON 15 LITERAL TYPES
+
+// opcja pierwsza
+
+// function combine (
+//     input1: number | string, 
+//     input2: number | string, 
+//     resultType: 'as-number' | 'as-text') {
+//     let result;
+//     if (typeof input1 === 'number' && typeof input2 === 'number'){
+//         result = input1 + input2;
+//     } else {
+//         result = input1.toString() + input2.toString()
+//     }
+//     if(resultType === 'as-number') {
+//         return +result; // + konwertuje to na numer
+//     } else {
+//         return result.toString()
 //     }
 // }
 
+// opcja druga
 
-// LESSON 10 Arrays
-
-// const person = {
-//     name: 'John',
-//     age: 50,
-//     hobbies: ['sports', 'cooking']
+// function combine(
+//   input1: number | string,
+//   input2: number | string,
+//   resultType: "as-number" | "as-text"   // tu użyjemy union types razem z literar types i określamy, co konkretnie może się pojawić w tym paramatrze
+// ) {
+//   let result;
+//   if (
+//     (typeof input1 === "number" && typeof input2 === "number") ||
+//     resultType === "as-number"
+//   ) {
+//     result = +input1 + +input2;
+//   } else {
+//     result = input1.toString() + input2.toString();
+//   }
+//   return result;
 // }
 
-// w ten sposób dajemy znać TS, że będzie to tablica, z elementami typu string:
+// const combinedAges = combine(30, 26, "as-number");
+// console.log(combinedAges);
 
-// let favouriteActivities: string[]
+// const combinedNames = combine("Max", "Anne", "as-text");
+// console.log(combinedNames);
 
-// favouriteActivities = 'sports' - to wywołuje error
-
-// favouriteActivities = ['sports'] - to nie wywołuje erroru
-
-// favouriteActivities = ['sports', 1] - to wywołuje błąd
-
-// any daje pełną elastyczność, ale pozbawia nas benefitów TS
-
-// let favAct: any[]
-
-// favAct = ['sports', 1, 8.9, false]
-
-// pętla for
-
-// for (const hobby of person.hobbies) {
-//     console.log(hobby)
-// }
-
-// ze stałą hobby możemy zrobić wszystko to, co ze stringiem, np. console.log(hobby.toUpperCase)
+// const combinedStringAges = combine("30", "26", "as-number");
+// console.log(combinedStringAges);
 
 
-// LESSON 11 Tuples - tablice o określonej długości i typie
 
-const person: {
-    name: string;
-    age: number;
-    hobbies: string[];
-    role: [number, string];  // to pozwala TS uznać role za tuple, który ma 2 elementy: 1. numeryczny, 2. string
-} = {
-    name: 'John',
-    age: 20,
-    hobbies: ['sports', 'cooking'],
-    role: [2, 'player']   // tuple - zakładamy, że user może mieć tylko jedną rolę, która jest identyfikowana przez id i opis - dlatego tuple może mieć tylko 2 elementy
+// LESSON 16  Type Aliases / Custom Types
+
+// type Combinable = number | string;
+// type ResultTypeDesc = 'as-number' | 'as-text';
+
+// function combine(
+//     input1: Combinable,
+//     input2: Combinable,
+//     resultType: ResultTypeDesc  
+//   ) {
+//     let result;
+//     if (
+//       (typeof input1 === "number" && typeof input2 === "number") ||
+//       resultType === "as-number"
+//     ) {
+//       result = +input1 + +input2;
+//     } else {
+//       result = input1.toString() + input2.toString();
+//     }
+//     return result;
+//   }
+  
+//   const combinedAges = combine(30, 26, "as-number");
+//   console.log(combinedAges);
+  
+//   const combinedNames = combine("Max", "Anne", "as-text");
+//   console.log(combinedNames);
+  
+//   const combinedStringAges = combine("30", "26", "as-number");
+//   console.log(combinedStringAges);
+
+
+// LESSON 17 więcej przykładów użycia Aliasów/ Typów kastomowych
+
+type User = {name: string; age: number};
+const u1: User = {name: 'Max', age: 30}
+
+console.log(u1)
+
+function greet (user: User) {
+    console.log('Hi, I am' + user.name);
 }
 
-// person.role[1] = 10  - to daje error, bo określiliśmy, że 2. element ma być stringiem
+function isOlder (user: User, checkAge: number) {
+    return checkAge > user.age;
+}
 
-person.role[1] = 'author' // - to nie wywoła błędu - zamiast player przypiszemy author
-
-console.log(person.role[1])
-
-// wyjątek w tuplach - push jest w nich dozwolony, więc TS nie widzi tego jako błąd, ale w innych przypadkach działa ograniczenie liczby i typu:
-
-person.role.push('admin')
-
-// person.role = [] 
-// person.role = [1, 2, 'admin'] to błędy - za mało elementów, powinny być 2
-
-person.role = [1, 'gamer'] // to nie błąd - przypisujemy tak, jak powinniśmy
-
-console.log(person.role)
+console.log(isOlder(u1, 40))
