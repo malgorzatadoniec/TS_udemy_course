@@ -1,124 +1,61 @@
-// LESSON 14 UNION TYPE
+// LESSON 18   więcej o funkcjach - RETURN TYPE + VOID type
 
-// function combine (input1: number | string, input2: number | string) {
-//     //const result = input1 + input2; // ale po wprowadzeniu number | string tu pojawia się error, bo TS nie analizuje, co jest w union typie, widzi tylko, że jest union type
-//     // jak sobie z tym poradzić za pomocą runtime checka (często będzie to potrzebne, choć nie zawsze):
-
-//     let result;
-//     if (typeof input1 === 'number' && typeof input2 === 'number'){
-//         result = input1 + input2;
-//     } else {
-//         result = input1.toString() + input2.toString()
-//     }
-//     return result;
+// function add (n1: number, n2: number) {
+//     return n1 + n2
 // }
 
-// const combinedAges = combine(30, 26)
-
-// console.log(combinedAges)
-
-// const combinedNames = combine('Max', 'Anne')
-
-// console.log(combinedNames)
-
-
-
-// LESSON 15 LITERAL TYPES
-
-// opcja pierwsza
-
-// function combine (
-//     input1: number | string, 
-//     input2: number | string, 
-//     resultType: 'as-number' | 'as-text') {
-//     let result;
-//     if (typeof input1 === 'number' && typeof input2 === 'number'){
-//         result = input1 + input2;
-//     } else {
-//         result = input1.toString() + input2.toString()
-//     }
-//     if(resultType === 'as-number') {
-//         return +result; // + konwertuje to na numer
-//     } else {
-//         return result.toString()
-//     }
+// function add2 (n1: number, n2: number) {
+//     return n1.toString() + n2.toString()
 // }
 
-// opcja druga
 
-// function combine(
-//   input1: number | string,
-//   input2: number | string,
-//   resultType: "as-number" | "as-text"   // tu użyjemy union types razem z literar types i określamy, co konkretnie może się pojawić w tym paramatrze
-// ) {
-//   let result;
-//   if (
-//     (typeof input1 === "number" && typeof input2 === "number") ||
-//     resultType === "as-number"
-//   ) {
-//     result = +input1 + +input2;
-//   } else {
-//     result = input1.toString() + input2.toString();
-//   }
-//   return result;
+// // return type można wprost określić, ale nie jest to zalecane (chyba, że z jakiegoś powodu jest to konieczne):
+
+// function add3 (n1: number, n2: number): number {
+//     return n1 + n2
 // }
 
-// const combinedAges = combine(30, 26, "as-number");
-// console.log(combinedAges);
 
-// const combinedNames = combine("Max", "Anne", "as-text");
-// console.log(combinedNames);
+// // VOID type
 
-// const combinedStringAges = combine("30", "26", "as-number");
-// console.log(combinedStringAges);
+// function printResult (num: number) {
+//     console.log('Result: ' + num)
+// }
 
+// printResult(add(5, 12))  // to pokaże Result: 17
 
-
-// LESSON 16  Type Aliases / Custom Types
-
-// type Combinable = number | string;
-// type ResultTypeDesc = 'as-number' | 'as-text';
-
-// function combine(
-//     input1: Combinable,
-//     input2: Combinable,
-//     resultType: ResultTypeDesc  
-//   ) {
-//     let result;
-//     if (
-//       (typeof input1 === "number" && typeof input2 === "number") ||
-//       resultType === "as-number"
-//     ) {
-//       result = +input1 + +input2;
-//     } else {
-//       result = input1.toString() + input2.toString();
-//     }
-//     return result;
-//   }
-  
-//   const combinedAges = combine(30, 26, "as-number");
-//   console.log(combinedAges);
-  
-//   const combinedNames = combine("Max", "Anne", "as-text");
-//   console.log(combinedNames);
-  
-//   const combinedStringAges = combine("30", "26", "as-number");
-//   console.log(combinedStringAges);
+// console.log(printResult(add(5,12))) // to zwróci undefined
 
 
-// LESSON 17 więcej przykładów użycia Aliasów/ Typów kastomowych
+// LESSON 19 FUNCTIONS AS TYPES
 
-type User = {name: string; age: number};
-const u1: User = {name: 'Max', age: 30}
+// function add (n1: number, n2: number) {
+//     return n1 + n2
+// }
 
-console.log(u1)
+// let combineValues
 
-function greet (user: User) {
-    console.log('Hi, I am' + user.name);
+// combineValues = add // storujemy funkcję w zmiennej
+// combineValues = 5 // problem polega na tym, że combineValues ma typ any, więc możemy do niej przypisać cokolwiek, nie tylko funkcję i wtedy to nie zadziała
+
+// console.log(combineValues(8, 8)) // egzekwujemy tę zienną jako funkcję
+
+// rozwiązanie:
+// let combineValues: Function // to sprawia, że tylko funkcję możemy tu przechować, ale wciąż - każdą funkcję
+
+// let combineValues: (a: number, b: number) => number // lepiej - określamy jaki return type ma mieć przechowywana tu funkcja, i że ma mieć 2 parametry typu number
+// combineValues = add
+
+// console.log(combineValues(8, 8)) 
+
+
+// LESSON 20 CALLBACKS
+
+function addAndHandle(n1: number, n2: number, callBack: (num: number) => void) {
+    const result = n1 + n2
+    callBack(result)
 }
 
-function isOlder (user: User, checkAge: number) {
-    return checkAge > user.age;
-}
-
-console.log(isOlder(u1, 40))
+addAndHandle(10, 20, (result) => {
+    console.log(result)
+})
