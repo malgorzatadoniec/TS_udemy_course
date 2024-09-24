@@ -1,10 +1,10 @@
-// LESSON 20 CALLBACKS
+// LESSON 22 NEVER TYPE
 
-function addAndHandle(n1: number, n2: number, callBack: (num: number) => void) {
-    const result = n1 + n2
-    callBack(result)
-}
+// jest to kolejny typ, jaki może zwrócić funkcja, tak jak void
 
-addAndHandle(10, 20, (result) => {
-    console.log(result)
-})
+function generateError(message: string, code: number): never {
+    throw {message: message, errorCode: code};
+    };
+generateError('An error occured!', 500)
+
+// taka funkcja nigdy nie zwraca wartości, więc zamiast void (która może zwracać, ale nie jest to wykorzystywane), warto użyć typu never
