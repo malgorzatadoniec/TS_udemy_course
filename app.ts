@@ -1,10 +1,3 @@
-// LESSON 22 NEVER TYPE
+// LESSON 25
 
-// jest to kolejny typ, jaki może zwrócić funkcja, tak jak void
-
-function generateError(message: string, code: number): never {
-    throw {message: message, errorCode: code};
-    };
-generateError('An error occured!', 500)
-
-// taka funkcja nigdy nie zwraca wartości, więc zamiast void (która może zwracać, ale nie jest to wykorzystywane), warto użyć typu never
+console.log("Hello world")
