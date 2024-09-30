@@ -1,3 +1,6 @@
 "use strict";
-// LESSON 25
-console.log("Hello world");
+// LESSON 26
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+    console.log('Clicked!');
+});

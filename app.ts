@@ -1,3 +1,7 @@
-// LESSON 25
+// LESSON 26
 
-console.log("Hello world")
+const button = document.querySelector('button')!;
+
+button.addEventListener('click', () => {
+    console.log('Clicked!')
+});
