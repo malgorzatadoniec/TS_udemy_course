@@ -1,23 +1,16 @@
 "use strict";
-// LESSON 26 + LESSON 32 ("strictNullCheck", "strictBindCallApply")
-// jeśli damy const button = document.querySelector('button'); bez wykrzyknika, to button w button.addEventListener będzie wskazywał błąd, ponieważ ta wartość
-// potencjalnie może być NULLem
-// można tego uniknąć dodając ! - to daje znać TS, że wiemy, że ta wartość nie będzie nullem:
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-    console.log('Clicked!');
-});
-// jeśli nie jesteśmy pewni, to najlepiej zamknąć to w if checku:
+// LESSON 33 code quality options
 if (button) {
     button.addEventListener('click', () => {
+        // let userName = "Ola"                          // "noUnusedLocals": true - podkreśli, bo nie używamy tej zmiennej
         console.log('Clicked!');
     });
 }
-// można też ustawiając "strictNullCheck" na false, ale to pozbawia nas TSowego sygnału, że w innych miejscach jest niebezpieczeństwo, że wartość będzie nullowa
-// "strictBindCallApply"
-function clickHandler(message) {
-    console.log('Clicked! ' + message);
+// noImplicitReturns - funkcja nie zawsze zwraca coś
+function add(n1, n2) {
+    if (n1 + n2 > 0) {
+        return n1 + n2;
+    }
+    return; // to pozwala obejść podkreślenie
 }
-if (button) {
-    button.addEventListener('click', clickHandler.bind(null, "Success"));
-}
+//# sourceMappingURL=app.js.map
