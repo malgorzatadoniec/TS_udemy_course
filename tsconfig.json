@@ -108,7 +108,8 @@
   },
   "exclude": [
     "node_modules",
-    "src/module2"
+    "src/module2",
+    "src/module3"
   ]
 
   // "include": [

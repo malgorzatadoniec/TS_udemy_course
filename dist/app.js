@@ -1,16 +1,9 @@
 "use strict";
-// LESSON 33 code quality options
-if (button) {
-    button.addEventListener('click', () => {
-        // let userName = "Ola"                          // "noUnusedLocals": true - podkreśli, bo nie używamy tej zmiennej
-        console.log('Clicked!');
-    });
-}
-// noImplicitReturns - funkcja nie zawsze zwraca coś
-function add(n1, n2) {
-    if (n1 + n2 > 0) {
-        return n1 + n2;
-    }
-    return; // to pozwala obejść podkreślenie
-}
+// L36 default function parameter
+// można przyposać funkcji domyślne argumenty (ale tylko do ostatniego parametru lub do wszystkich, nie można tak, że do 1. jest a do drugiego nie):
+const add2 = (a = 1, b = 1, c = 1) => a + b + c;
+console.log(add2());
+console.log(add2(3));
+console.log(add2(3, 4));
+console.log(add2(2, 2, 2));
 //# sourceMappingURL=app.js.map
