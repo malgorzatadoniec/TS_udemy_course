@@ -1,17 +1,11 @@
-// LESSON 33 code quality options
+// L36 default function parameter
 
-if(button) {
-    button.addEventListener('click', () => {
-        // let userName = "Ola"                          // "noUnusedLocals": true - podkreśli, bo nie używamy tej zmiennej
-        console.log('Clicked!')
-    });
-}
+// można przyposać funkcji domyślne argumenty (ale tylko do ostatniego parametru lub do wszystkich, nie można tak, że do 1. jest a do drugiego nie):
 
-// noImplicitReturns - funkcja nie zawsze zwraca coś
+const add2 = (a: number = 1, b: number = 1, c: number = 1) => a + b + c;
 
-function add(n1: number, n2: number ) {
-    if (n1 + n2 > 0) {
-    return n1 + n2
-    }
-    return // to pozwala obejść podkreślenie
-}
+console.log(add2())
+console.log(add2(3))
+console.log(add2(3, 4))
+console.log(add2(2, 2, 2))
+
