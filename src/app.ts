@@ -1,11 +1,36 @@
-// L36 default function parameter
+// LESSON 39 array and object destructuring
 
-// można przyposać funkcji domyślne argumenty (ale tylko do ostatniego parametru lub do wszystkich, nie można tak, że do 1. jest a do drugiego nie):
+const hobby = ['sport', 'gaming'];
 
-const add2 = (a: number = 1, b: number = 1, c: number = 1) => a + b + c;
+// co jeśli chcemy wyciągnąć wszystkie elementy i przypisać je do zmiennych/stałych?
 
-console.log(add2())
-console.log(add2(3))
-console.log(add2(3, 4))
-console.log(add2(2, 2, 2))
+// można to zrobić na piechotę
 
+const hobby1 = hobby[0];
+const hobby2 = hobby[1];
+
+console.log('1. ' + hobby1 + ', 2. ' + hobby2);
+
+// ale można to zrobić za pomocą array destructuring
+
+const flowers = ['mak', 'slonecznik', 'roza', 'mlecz'];
+
+const [flower1, flower2, ...remainingFlowers] = flowers;
+
+console.log('1. '+flower1+', 2. '+flower2);
+console.log(remainingFlowers);
+console.log(flowers);
+
+// działa to też dla obiektów:
+// ważne, żeby pamiętać, że kolejność w obiektach nie jest określona, więc w tym wypadku wyciągamy za pomocą kluczy:
+
+const person2 = {
+    firstName: "Ann",
+    years: 23,
+    height: 165
+};
+
+const {firstName: uName, years, height: cm} = person2; // możemy zmienić nazwę klucza, robimy to po : 
+
+console.log(uName, years, cm)
+console.log(person2)
