@@ -110,7 +110,8 @@
     "node_modules",
     "src/module2",
     "src/module3",
-    "src/module4"
+    "src/module4",
+    "src/module5"
   ]
 
   // "include": [
