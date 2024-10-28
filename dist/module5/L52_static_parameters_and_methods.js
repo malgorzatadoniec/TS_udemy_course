@@ -1,10 +1,9 @@
 "use strict";
-// LESSON 53 abstract classes
-// jeśleli chcemy wymusić, żeby w każdej nowej klasie opartej na bazowej klasie była jakaś metoda, ale wiemy, że będzie ona musiała być specyficzna
-// dla danej klasy opartej na bazowej, to wtedy możemy użyć 
-// wtedy w bazowej klasie tworzymy pustą metodę, która będzie wykorzystywana w innych, opartych na niej i w każdej z nich implementowana na jej
-// właściwy sposób
-// ważne! klasa oznaczona jako "abstract" nie może być instancjowana (new NazwaKlasy), może być tylko dziedziczona!
+// LESSON 52 static methods and properties
+// pozwala na dodawanie statycznych metod i właściwości do klas, od których dostęp nie jest uzyskiwany podczas instancji (new Klasa), tylko 
+// dostajemy się do nich bezpośrednio na klasie, np klasa Math:
+Math.PI;
+// możemy tego użyć w naszych klasach:
 class AllDepartments {
     constructor(id, name) {
         this.id = id;
@@ -14,6 +13,10 @@ class AllDepartments {
     ;
     static createEmploee(name) {
         return { name: name };
+    }
+    ;
+    depDescription() {
+        console.log(`Dział ${this.id}: ${this.name}`);
     }
     ;
     addEmp(employee) {
@@ -28,6 +31,8 @@ class AllDepartments {
 }
 AllDepartments.fiscalYear = 2024;
 ;
+const employee1 = AllDepartments.createEmploee('Johnny');
+console.log(employee1, AllDepartments.fiscalYear);
 class ITDepartment extends AllDepartments {
     constructor(id, admins) {
         super(id, 'IT');
@@ -35,13 +40,9 @@ class ITDepartment extends AllDepartments {
         this.admins = admins;
     }
     ;
-    describe() {
-        console.log('IT Department id: ' + this.id);
-    }
 }
 ;
 const it = new ITDepartment(1, ['Max']);
-it.describe();
 class AccountingDepartment extends AllDepartments {
     get mostRecentReport() {
         if (this.lastReport) {
@@ -63,10 +64,6 @@ class AccountingDepartment extends AllDepartments {
         this.lastReport = reports[0];
     }
     ;
-    describe() {
-        console.log('Accounting Department id: ' + this.id);
-    }
-    ;
     addEmp(name) {
         if (name === "Tom") {
             return;
@@ -83,5 +80,14 @@ class AccountingDepartment extends AllDepartments {
 }
 ;
 const accDep = new AccountingDepartment(2, []);
-accDep.describe();
-//# sourceMappingURL=app.js.map
+accDep.depDescription();
+accDep.addEmp('Tom');
+accDep.addEmp('Lisa');
+accDep.addEmp('Margo');
+accDep.printInfo();
+accDep.addReport('report1');
+accDep.addReport('report2');
+accDep.mostRecentReport = "Last report";
+console.log(accDep.mostRecentReport);
+console.log(accDep);
+//# sourceMappingURL=L52_static_parameters_and_methods.js.map
