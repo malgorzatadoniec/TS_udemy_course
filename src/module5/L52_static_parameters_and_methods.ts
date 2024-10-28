@@ -1,23 +1,25 @@
-// LESSON 53 abstract classes
+// LESSON 52 static methods and properties
 
-// jeśleli chcemy wymusić, żeby w każdej nowej klasie opartej na bazowej klasie była jakaś metoda, ale wiemy, że będzie ona musiała być specyficzna
-// dla danej klasy opartej na bazowej, to wtedy możemy użyć 
-// wtedy w bazowej klasie tworzymy pustą metodę, która będzie wykorzystywana w innych, opartych na niej i w każdej z nich implementowana na jej
-// właściwy sposób
+// pozwala na dodawanie statycznych metod i właściwości do klas, od których dostęp nie jest uzyskiwany podczas instancji (new Klasa), tylko 
+// dostajemy się do nich bezpośrednio na klasie, np klasa Math:
 
-// ważne! klasa oznaczona jako "abstract" nie może być instancjowana (new NazwaKlasy), może być tylko dziedziczona!
+Math.PI
 
-abstract class AllDepartments {                          // dodajemy słówko "abstract" tu 
+// możemy tego użyć w naszych klasach:
+
+class AllDepartments {
     static fiscalYear = 2024;
     protected employees: string[] = [];                            
 
-    constructor(protected readonly id: number, public name: string){};
+    constructor(private readonly id: number, public name: string){};
 
     static createEmploee(name: string){
         return {name: name};
     };
 
-    abstract describe(this: AllDepartments): void;                         // i tutaj; określamy jak powinna wyglądać ta metoda
+    depDescription() {
+        console.log(`Dział ${this.id}: ${this.name}`);
+    };
 
     addEmp(employee: string){
         this.employees.push(employee);
@@ -29,20 +31,18 @@ abstract class AllDepartments {                          // dodajemy słówko "a
     };
 };
 
+const employee1 = AllDepartments.createEmploee('Johnny');
+console.log(employee1, AllDepartments.fiscalYear)
+
 class ITDepartment extends AllDepartments {
 
     constructor(id: number, public admins: string[]) {
         super(id, 'IT');
         this.admins = admins
     };
-
-    describe(){
-        console.log('IT Department id: ' + this.id)
-    }
 };
 
 const it = new ITDepartment(1, ['Max']);
-it.describe();
 
 
 class AccountingDepartment extends AllDepartments {
@@ -67,11 +67,6 @@ class AccountingDepartment extends AllDepartments {
         this.lastReport = reports[0];
     };
 
-    describe() {
-        console.log('Accounting Department id: ' + this.id);
-        
-    };
-
     addEmp(name: string) {
         if (name === "Tom"){
             return
@@ -91,7 +86,17 @@ class AccountingDepartment extends AllDepartments {
 
 const accDep = new AccountingDepartment(2, []);
 
-accDep.describe();
 
+accDep.depDescription();
+accDep.addEmp('Tom');
+accDep.addEmp('Lisa');
+accDep.addEmp('Margo');
+accDep.printInfo();
+accDep.addReport('report1');
+accDep.addReport('report2');
 
+accDep.mostRecentReport = "Last report"
 
+console.log(accDep.mostRecentReport);   
+
+console.log(accDep);
