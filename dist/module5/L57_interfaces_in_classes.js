@@ -1,5 +1,5 @@
 "use strict";
-// LESSON 60 extending interfaces
+// LESSON 57 Interfaces with classes
 ;
 class Person {
     constructor(n) {
@@ -16,4 +16,4 @@ let userOne;
 userOne = new Person('John');
 userOne.greet('Hi I am ');
 console.log(userOne);
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=L58_interfaces_in_classes.js.map
