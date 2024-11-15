@@ -1,5 +1,5 @@
 "use strict";
-// LESSON 60 extending interfaces
+// LESSON 59 readonly interface properties 
 ;
 class Person {
     constructor(n) {
@@ -14,6 +14,7 @@ class Person {
 ;
 let userOne;
 userOne = new Person('John');
+// userOne.name = "Johnny"    // tu wyrzuci error, bo ustawiliśmy readonly w interfejsie
 userOne.greet('Hi I am ');
 console.log(userOne);
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=L59_readonly_in_interfaces.js.map
