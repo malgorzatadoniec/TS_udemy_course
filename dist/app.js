@@ -1,19 +1,26 @@
 "use strict";
-// LESSON 60 extending interfaces
+// LESSON 62 optional parameters and properties
 ;
 class Person {
     constructor(n) {
         this.age = 18;
-        this.name = n;
+        if (n) {
+            this.name = n;
+        }
     }
     ;
     greet(phrase) {
-        console.log(phrase + this.name);
+        if (this.name) {
+            console.log(phrase + this.name);
+        }
+        else {
+            console.log('Hi!');
+        }
     }
 }
 ;
 let userOne;
-userOne = new Person('John');
+userOne = new Person();
 userOne.greet('Hi I am ');
 console.log(userOne);
 //# sourceMappingURL=app.js.map

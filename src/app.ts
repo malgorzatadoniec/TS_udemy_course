@@ -1,32 +1,36 @@
-// LESSON 60 extending interfaces
-
-// w interfejsach można zastosować dziedziczenie, podobnie jak w klasach
+// LESSON 62 optional parameters and properties
 
 interface Named {
-    readonly name: string;
+    readonly name?: string;
+    outputName?: string;              // jakąś wartość możemy np. określić jako opcjonalną, za pomocą ?
 }
 
-interface Greetable extends Named {        // tu po przecinku też można dodać kolejny interfejs do dziedziczenia (w przeciwieństwie do klas)
+interface Greetable extends Named {        
      greet(phrase: string): void;
  };
  
- class Person implements Greetable {       // możemy albo tu, po przecinku dodać "Named" albo użyć dziedziczenia jak wyżej
- 
-     name: string;
-     age = 18;
+ class Person implements Greetable {       
+     name?: string;                            // w klasie też wartości mogą być oznaczone jako opcjonalne, ale wtedy w interfejsie też takie muszą być
+     age = 18;                                         
          
-     constructor(n: string){
+     constructor(n?: string){                    // parametry też mogą być opcjonalne, wtedy dajemy albo ?, albo wartość domyślną (po string = "XXX")
+        if(n) {
          this.name = n;
+         }
      };
  
      greet(phrase: string) {
+        if(this.name){
          console.log(phrase + this.name)
+        } else {
+            console.log('Hi!')
+        }
      }
  };
  
  let userOne: Greetable;
  
- userOne = new Person('John')
+ userOne = new Person()
  
  userOne.greet('Hi I am ')
  console.log(userOne) 
