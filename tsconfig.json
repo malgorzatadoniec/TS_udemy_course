@@ -111,7 +111,8 @@
     "src/module2",
     "src/module3",
     "src/module4",
-    "src/module5"
+    "src/module5",
+    "src/module6"
   ]
 
   // "include": [
