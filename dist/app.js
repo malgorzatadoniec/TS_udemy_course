@@ -1,3 +1,3 @@
 "use strict";
-'hello world';
+// LESSON 73
 //# sourceMappingURL=app.js.map
